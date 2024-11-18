@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .max-columns {
+    column-count: 2;
+    column-fill: auto;
+  }
+  .column-gap {
+    column-gap: 1rem; /* Adjust spacing */
+  }
+}
