@@ -29,7 +29,7 @@ const Testimonials = () => {
         experiences, showcasing a vibrant community of learners who thrive in a
         supportive and enriching academic environment.
       </p>
-      <div className="flex flex-col  items-center border-2 border-red-300 gap-y-8 mt-20 md:flex-row md:gap-x-20 md:justify-center">
+      <div className="flex flex-col  items-center  gap-y-8 mt-20 md:flex-row md:gap-x-20 md:justify-center">
         {testimonialsData.map((testimonial, index) => (
           <Testimonial
             key={index}

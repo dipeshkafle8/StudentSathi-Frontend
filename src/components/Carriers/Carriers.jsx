@@ -33,31 +33,40 @@ const bachelorFields = [
 ];
 function Carriers() {
   let { courseCarriers } = useParams();
-  console.log(courseCarriers);
+
   let course = courseCarriers || "Engineering";
-  console.log(course);
 
   course = course.split(" ")[0];
 
   const [selectedCourse, setCourse] = useState(course);
   const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const handleCourseChange = event => {
     setCourse(event.target.value);
   };
 
   async function getData() {
-    let response = await axios.post(
-      `https://studentsathi-backend.onrender.com/getdata/getRole/${selectedCourse}`
-    );
-    console.log(response.data);
-    if (response.data.msg !== "Error") {
-      setPosts(response.data);
+    try {
+      let response = await axios.post(
+        `https://studentsathi-backend.onrender.com/getdata/getRole/${selectedCourse}`
+      );
+      console.log(response.data);
+      if (response.data.msg !== "Error") {
+        setPosts(response.data);
+        setIsLoading(false);
+      }
+    } catch (err) {
+      console.log("Error in getting carriers");
     }
   }
 
   useEffect(() => {
     getData();
   }, [selectedCourse]);
+  if (isLoading) {
+    return <div className="mt-28 text-xl text-center">Loading.......</div>;
+  }
+
   return (
     <>
       <div className="carriers" style={{ marginTop: 130 }}>

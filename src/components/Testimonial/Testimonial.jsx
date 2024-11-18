@@ -1,7 +1,7 @@
 import React from "react";
 const Testimonial = ({ name, text, imge }) => {
   return (
-    <div className="w-64 testimonial bg-white p-6 rounded-lg shadow-lg text-center border-t-2 border-[#5545ec] hover:cursor-pointer hover:shadow-xl  md:max-w-lg">
+    <div className="w-64 testimonial bg-white p-6 rounded-lg shadow-lg text-center border-t-2 border-[#5545ec] hover:cursor-pointer hover:shadow-xl  md:w-[30rem]">
       <img
         src={imge}
         alt={`${name}s's picture`}

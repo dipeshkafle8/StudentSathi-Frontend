@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import logo from "./Logo.png";
 import { useLocation, Link } from "react-router-dom";
-import { Menu, User } from "lucide-react";
+import { Menu, User, X } from "lucide-react";
 import useAuth from "../hooks/useAuth";
 import Ham from "./Ham";
 
@@ -157,8 +157,28 @@ function Nav() {
           </ul>
         </div>
         <div className="md:hidden">
-          <Menu size={36} className="mr-2 mb-2" onClick={setHamBurger} />
-          {isHamOpen ? <Ham isHome={isHomePage} /> : null}
+          {isHamOpen ? (
+            <X
+              size={36}
+              className="mr-2 mb-2 hover:cursor-pointer"
+              onClick={setHamBurger}
+            />
+          ) : (
+            <Menu
+              size={36}
+              className="mr-2 mb-2 hover:cursor-pointer"
+              onClick={setHamBurger}
+            />
+          )}
+
+          {isHamOpen ? (
+            <Ham
+              isHome={isHomePage}
+              navbarWithBg={navbar}
+              isHamOpen={isHamOpen}
+              setIsHamOpen={setIsHamOpen}
+            />
+          ) : null}
         </div>
       </div>
     </>
