@@ -38,7 +38,9 @@ function Ham({ isHome, navbarWithBg, isHamOpen, setIsHamOpen }) {
             </Link>
           </li>
           <li>
-            <Link to="/login">Sign In</Link>
+            <Link to="/login" onClick={() => setIsHamOpen(!isHamOpen)}>
+              Sign In
+            </Link>
           </li>
         </ul>
       </div>

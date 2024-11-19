@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Pagination from "./pagination";
 import Posts from "./Posts";
+import Footer from "../Footer/Footer";
 
 const bachelorFields = [
   "Engineering and Technology",
@@ -164,6 +165,7 @@ function HandleUniversity() {
         totalPosts={posts.length}
         paginate={paginate}
       />
+      <Footer />
     </>
   );
 }

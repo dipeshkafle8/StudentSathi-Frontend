@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Footer from "../Footer/Footer";
 import "./carriers.css";
 const bachelorFields = [
   "Engineering and Technology",
@@ -69,9 +70,9 @@ function Carriers() {
 
   return (
     <>
-      <div className="carriers" style={{ marginTop: 130 }}>
-        <div id="filterRole">
-          <span>Select Course for Carriers: </span>
+      <div className="mt-24 text-center md:mt-28">
+        <div className="text-center">
+          <span className="text-xl font-bold">Carriers: </span>
           <select value={selectedCourse} onChange={handleCourseChange}>
             {bachelorFields.map((val, i) => {
               return (
@@ -84,18 +85,20 @@ function Carriers() {
         </div>
         {/* {selectedCourse=="None"?alert(`Select the course for carriers`):<h1>Carriers for {selectedCourse}</h1>} */}
 
-        <div className="showRole">
+        <div className="m-2 mt-8 grid grid-cols-1  gap-y-4 gap-x-4 p-4 items-center justify-evenly border-t-2 md:grid-cols-3 shadow-md rounded-sm">
           {posts.map((value, i) => {
             return (
-              <div className="card green">
-                <div key={i} className="role">
-                  {value}
-                </div>
+              <div
+                key={i}
+                className=" bg-[#6c573086] text-center p-2 font-semibold rounded-sm hover:cursor-pointer hover:bg-[#6c57302f]"
+              >
+                {value}
               </div>
             );
           })}
         </div>
       </div>
+      <Footer />
     </>
   );
 }
