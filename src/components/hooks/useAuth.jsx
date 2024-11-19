@@ -9,13 +9,16 @@ function useAuth() {
     if (token) {
       const verifyToken = async () => {
         try {
-          let res = await fetch("http://localhost:5000/checkAuthUser", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`
+          let res = await fetch(
+            "https://studentsathi-backend.onrender.com/checkAuthUser",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+              }
             }
-          });
+          );
           res = await res.json();
 
           if (res.success === true) {
