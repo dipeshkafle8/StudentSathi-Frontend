@@ -1,13 +1,22 @@
 import "./login.css";
 import { useNavigate, Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../Auth/AuthContext";
 import axios from "axios";
 
 function Login() {
+  const {
+    isAuthenticatedUser,
+    setIsAuthenticatedUser,
+    username,
+    setUsername,
+    loading
+  } = useContext(AuthContext);
   const Navigate = useNavigate();
   const location = useLocation();
   const [guestUser, setGuestUser] = useState("");
   const from = location.state?.from?.pathname || "/";
+
   const sendLoginDetailsToBackEnd = async data => {
     try {
       let response = await axios.post(
@@ -23,9 +32,11 @@ function Login() {
         //for storinng response in localStorage
         localStorage.setItem("token", response.jwtToken);
         localStorage.setItem("LoggedUser", response.username);
+        setIsAuthenticatedUser(true);
+        setUsername(response.username);
 
         Navigate(from, { replace: true });
-        window.location.reload();
+
         /* 
         Note:After a user logs in they are redirected back
         to the original route after using replace:true the login page is 

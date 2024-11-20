@@ -8,7 +8,7 @@ import Details from "./components/coursedetails/Details.jsx";
 import HandleUniversity from "./components/universities/university.jsx";
 import Contact from "./components/Contact/contact.jsx";
 import Carriers from "./components/Carriers/Carriers.jsx";
-
+import { AuthProvider } from "./components/Auth/AuthContext.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 import "./App.css";
@@ -16,35 +16,37 @@ import "./App.css";
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Nav />
-        <Routes>
-          <Route path="/" element={<Front />} />
-          <Route path="/Coursedetails/:index" element={<Details />} />
-          <Route path="/Course" element={<Course />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route
-            path="/Universities"
-            element={
-              <ProtectedRoute>
-                <HandleUniversity />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/Universities/:Course"
-            element={
-              <ProtectedRoute>
-                <HandleUniversity />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/Contact" element={<Contact />} />
-          <Route path="/Carriers" element={<Carriers />} />
-          <Route path="/Carriers/:courseCarriers" element={<Carriers />} />
-        </Routes>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Nav />
+          <Routes>
+            <Route path="/" element={<Front />} />
+            <Route path="/Coursedetails/:index" element={<Details />} />
+            <Route path="/Course" element={<Course />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route
+              path="/Universities"
+              element={
+                <ProtectedRoute>
+                  <HandleUniversity />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/Universities/:Course"
+              element={
+                <ProtectedRoute>
+                  <HandleUniversity />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/Contact" element={<Contact />} />
+            <Route path="/Carriers" element={<Carriers />} />
+            <Route path="/Carriers/:courseCarriers" element={<Carriers />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </>
   );
 }

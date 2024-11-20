@@ -1,26 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import logo from "./Logo.png";
 import { useLocation, Link } from "react-router-dom";
 import { Menu, User, X } from "lucide-react";
-import useAuth from "../hooks/useAuth";
+import { AuthContext } from "../Auth/AuthContext";
 import Ham from "./Ham";
 
 function Nav() {
-  const [user, setUser] = useState(null);
+  const { isAuthenticatedUser, username, loading } = useContext(AuthContext);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [navbar, setNavbar] = useState(false);
   const [isHamOpen, setIsHamOpen] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === "/";
-  console.log("Hello");
-  const { isAuthenticatedUser, authMessage, loading } = useAuth();
-
-  useEffect(() => {
-    if (!loading) {
-      const username = localStorage.getItem("LoggedUser");
-      if (username != null) setUser(username);
-    }
-  }, [loading, user]);
 
   //to display items on clicking ham or hide
   function setHamBurger() {
@@ -117,7 +108,7 @@ function Nav() {
             </li>
             <li>
               {/* if user is logged IN show profile Icon otherwise show Sign In */}
-              {!user ? (
+              {!isAuthenticatedUser ? (
                 <Link
                   to="/login"
                   className={`font-[500] ${
@@ -142,7 +133,7 @@ function Nav() {
             {isProfileOpen ? (
               <div className="absolute bg-[#e9d8d8] text-black right-8 top-16 p-4 rounded-sm">
                 <ul className="flex flex-col justify-center items-center gap-y-2">
-                  <li className="text-[#6e33cb]">Hi,{user}</li>
+                  <li className="text-[#6e33cb]">Hi,{username}</li>
                   <li>
                     <button
                       className="px-4 border-2 border-[#491ec0] bg-[#491ec0] text-white hover:bg-[#311c69] rounded-md"

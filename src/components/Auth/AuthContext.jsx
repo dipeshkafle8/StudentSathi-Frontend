@@ -1,11 +1,15 @@
-import { useState, useEffect } from "react";
-function useAuth() {
+import React, { createContext, useState, useEffect } from "react";
+import { ClipLoader } from "react-spinners"; // Import the ClipLoader from react-spinners
+export const AuthContext = createContext();
+
+export const AuthProvider = ({ children }) => {
   const [isAuthenticatedUser, setIsAuthenticatedUser] = useState(false);
-  const [authMessage, setAuthMessage] = useState("");
+  const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log("This the function for checking validation", token);
+    const username = localStorage.getItem("LoggedUser");
     if (token) {
       const verifyToken = async () => {
         try {
@@ -23,28 +27,44 @@ function useAuth() {
 
           if (res.success === true) {
             setIsAuthenticatedUser(true);
-            setAuthMessage("User Logged");
+            setUsername(username);
           } else {
             localStorage.removeItem("token");
             localStorage.removeItem("LoggedUser");
           }
         } catch (err) {
-          setIsAuthenticatedUser(false);
-          setAuthMessage("Error in Accessing user");
+          console.error("Error verifying token:", err);
           localStorage.removeItem("token");
           localStorage.removeItem("LoggedUser");
         } finally {
           setLoading(false);
         }
       };
+
       verifyToken();
     } else {
       setLoading(false);
-      setIsAuthenticatedUser(false);
-      setAuthMessage("User is not logged");
     }
   }, []);
-  return { isAuthenticatedUser, authMessage, loading };
-}
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <ClipLoader size={50} color={"#123abc"} loading={loading} />
+      </div>
+    );
+  }
 
-export default useAuth;
+  return (
+    <AuthContext.Provider
+      value={{
+        isAuthenticatedUser,
+        setIsAuthenticatedUser,
+        username,
+        setUsername,
+        loading
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
