@@ -1,6 +1,5 @@
 import { useParams, Link } from "react-router-dom";
 
-import "./coursed.css";
 import Footer from "../Footer/Footer";
 
 const arrd = [

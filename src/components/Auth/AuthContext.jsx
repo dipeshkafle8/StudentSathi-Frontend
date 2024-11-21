@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import { ClipLoader } from "react-spinners"; // Import the ClipLoader from react-spinners
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
